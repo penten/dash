@@ -2,13 +2,22 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/penten/pocket"
 	"html/template"
 	"io"
+	"io/ioutil"
 	"os"
 )
+
+type config struct {
+	Pocket_appkey   string
+	Pocket_apptoken string
+}
+
+var c config
 
 type layout struct {
 	Body template.HTML
@@ -55,8 +64,8 @@ func displayTemplate(file string, data interface{}) (string, error) {
 }
 
 func displayPocket() (string, error) {
-	archive, erra := pocket.GetArticles(pocket_appkey, pocket_apptoken, map[string]string{"favorite": "0", "state": "archive", "count": "8", "sort": "newest"})
-	favorite, errb := pocket.GetArticles(pocket_appkey, pocket_apptoken, map[string]string{"favorite": "1", "state": "archive", "count": "4", "sort": "newest"})
+	archive, erra := pocket.GetArticles(c.Pocket_appkey, c.Pocket_apptoken, map[string]string{"favorite": "0", "state": "archive", "count": "8", "sort": "newest"})
+	favorite, errb := pocket.GetArticles(c.Pocket_appkey, c.Pocket_apptoken, map[string]string{"favorite": "1", "state": "archive", "count": "4", "sort": "newest"})
 
 	if erra != nil || errb != nil {
 		return "", errors.New("Unable to fetch articles from pocket")
@@ -72,7 +81,27 @@ func displayPocket() (string, error) {
 	return a + b, nil
 }
 
+func loadConfig() error {
+	file, err := ioutil.ReadFile("config.json")
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(file, &c)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func main() {
+	err := loadConfig()
+	if err != nil {
+		fmt.Printf("Error loading configuration " + err.Error())
+		os.Exit(1)
+	}
+
 	f, err := os.Create("output.html")
 	if err != nil {
 		fmt.Printf("Error opening output file: " + err.Error())
