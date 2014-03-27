@@ -1,0 +1,11 @@
+<div class="section">
+	<div class="container nobackground">
+		<h3>Recently Read Articles</h3>
+		{{range .}}
+		<div class="article"{{if fourth}} style="margin-right:0;"{{end}}>
+			<a href="{{.Url}}">{{.Title}}</a>
+			<img src="images/dash/default.png" alt="{{.Title}}" data-thumb="{{.Cover}}" />
+		</div>
+		{{end}}
+	</div>
+</div>

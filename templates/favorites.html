@@ -1,0 +1,11 @@
+<div class="section">
+	<div class="container nobackground">
+		<h3>Recently Favorited Articles</h3>
+		{{range .}}
+		<div class="article favorited"{{if fourth}} style="margin-right:0;"{{end}}>
+			<img src="images/dash/default.png" alt="{{.Title}}" data-thumb="{{.Cover}}" />
+			<a href="{{.Url}}">{{.Title}}</a>
+		</div>
+		{{end}}
+	</div>
+</div>
