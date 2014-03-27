@@ -10,6 +10,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"time"
 )
 
 type config struct {
@@ -20,16 +21,17 @@ type config struct {
 var c config
 
 type layout struct {
-	Body template.HTML
+	Body  template.HTML
+	Title string
 }
 
-func displayPage(out io.Writer, body string) error {
+func displayPage(out io.Writer, body string, title string) error {
 	t, err := template.ParseFiles("templates/base.html")
 	if err != nil {
 		return err
 	}
 
-	return t.Execute(out, layout{Body: template.HTML(body)})
+	return t.Execute(out, layout{Body: template.HTML(body), Title: title})
 }
 
 func nth(n int) func() bool {
@@ -44,8 +46,13 @@ func nth(n int) func() bool {
 	}
 }
 
+func currentTime() string {
+	return time.Now().Format("Jan 2, 2006 at 3:04pm")
+}
+
 var funcs = template.FuncMap{
-	"fourth": nth(4),
+	"fourth":      nth(4),
+	"currentTime": currentTime,
 }
 
 func displayTemplate(file string, data interface{}) (string, error) {
@@ -114,7 +121,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	err = displayPage(f, body)
+	err = displayPage(f, body, "Dashboard")
 	if err != nil {
 		fmt.Printf("Error displaying template: " + err.Error())
 		os.Exit(1)

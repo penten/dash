@@ -1,4 +1,4 @@
-<div class="section">
+<div class="section bgGrey">
 	<div class="container nobackground">
 		<h3>Recently Favorited Articles</h3>
 		{{range .}}
@@ -7,5 +7,10 @@
 			<a href="{{.Url}}">{{.Title}}</a>
 		</div>
 		{{end}}
+		<div class="clear"></div>
+		<p class="footnote">
+			Dashboard last generated at {{currentTime}} using data from the Pocket API<br/>
+			This page was generated using the source code at <a href="http://github.com/penten/dash">github.com/penten/dash</a>.
+		</p>
 	</div>
 </div>

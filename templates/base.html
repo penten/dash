@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Maximillian Martin</title>
+<title>Maximillian Martin - {{.Title}}</title>
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
 <link href="css/layout.css" rel="stylesheet" type="text/css" />
 <link href="css/font.css" rel="stylesheet" type="text/css" />
@@ -37,8 +37,8 @@
 
 	<div class="topInfo">
 		<div class="container">
-			<h1>Maximillian Martin</h1>
-			<a href="mailto:max@maxjmartin.com" target="_blank" class="email">max<span>@</span>maxjmartin.com</a>
+			<h1><a href="/">Maximillian Martin</a></h1>
+			<a href="mailto:max@maxjmartin.com" target="_blank" class="email">max<span>@</span>maxjmartin.com - {{.Title}}</a>
 			<img src="images/photo.jpg" id="photo"/>
 		</div><!--container-->
 	</div><!--topInfo-->
@@ -53,7 +53,10 @@
 	
 	<div class="section footer">
 		<div class="container">
-			<div class="left"><img src="images/iconEmail2.png"/><a href="mailto:max@maxjmartin.com" target="_blank">max<span>@</span>maxjmartin.com</a></div><!--left-->
+			<div class="left">
+				<img src="images/iconEmail2.png"/><a href="mailto:max@maxjmartin.com" target="_blank">max<span>@</span>maxjmartin.com</a>
+				<img src="images/iconMore.png"/><a href="/" target="_blank">back to my CV</a>
+			</div><!--left-->
 			<div class="right">Thank you!</div><!--right-->
 			<div class="clear"></div>
 		</div><!--container-->
